@@ -501,7 +501,8 @@ LogOn true
 LogFileThresholdLength 102400
 LogFileFolder /var/log
 UDPLocal 0.0.0.0:$PDNSD_LOCAL_PORT
-TCPGroup $tcp_dns_list * no
+#TCPGroup $tcp_dns_list * no
+TCPGroup 161.117.183.193:5053,47.74.245.177:5053 * no
 GroupFile
 BlockIP 243.185.187.39,46.82.174.68,37.61.54.158,93.46.8.89,59.24.3.173,203.98.7.65,8.7.198.45,78.16.49.15,159.106.121.75,69.63.187.12,31.13.76.8,31.13.64.49
 IPSubstituting
