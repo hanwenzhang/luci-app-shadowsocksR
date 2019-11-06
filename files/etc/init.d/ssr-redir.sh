@@ -459,7 +459,7 @@ start_dnsforwarder()
 	[ "$white" = 1 ] && { #启用强制不代理列表
 		uci set dnsforwarder.@arguments[0].white=1
 		uci set dnsforwarder.@arguments[0].whiteset=$WHITE_SET
-		uci set dnsforwarder.@arguments[0].whitedns=114.114.114.114
+		uci set dnsforwarder.@arguments[0].whitedns=61.139.2.69
 	}
 
 	uci commit dnsforwarder
@@ -484,7 +484,7 @@ start_dnsforwarder()
 	case "$dns_mode" in
 		tcp_gfwlist)
 			[ -n "$safe_dns" ] && tcp_dns_list="$safe_dns,$tcp_dns_list"
-			safe_dns="114.114.114.114"
+			safe_dns="61.139.2.69"
 			;;
 		tcp_proxy)
 			[ -n "$safe_dns" ] && tcp_dns_list="$safe_dns,$tcp_dns_list"
@@ -502,7 +502,7 @@ LogFileThresholdLength 102400
 LogFileFolder /var/log
 UDPLocal 0.0.0.0:$PDNSD_LOCAL_PORT
 #TCPGroup $tcp_dns_list * no
-TCPGroup 161.117.183.193:5053,47.74.245.177:5053 * no
+TCPGroup 47.74.245.177:5053,161.117.183.193:5053 * no
 GroupFile
 BlockIP 243.185.187.39,46.82.174.68,37.61.54.158,93.46.8.89,59.24.3.173,203.98.7.65,8.7.198.45,78.16.49.15,159.106.121.75,69.63.187.12,31.13.76.8,31.13.64.49
 IPSubstituting
@@ -516,14 +516,14 @@ AppendHosts
 BlockIpv6WhenIpv4Exists false
 UseCache true
 CacheSize 1048576
-MemoryCache true
-CacheFile
+MemoryCache false
+CacheFile /tmp/DNScache
 IgnoreTTL false
 OverrideTTL -1
-MultipleTTL 1
-ReloadCache false
-OverwriteCache false
-DisabledType
+MultipleTTL 10
+ReloadCache true
+OverwriteCache true
+DisabledType 28
 DisabledDomain
 DisabledList
 DomainStatistic false
