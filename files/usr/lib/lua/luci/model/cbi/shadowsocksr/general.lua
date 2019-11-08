@@ -23,8 +23,7 @@ end
 
 
 m = Map("ssrr", translate("Shadowsocksr Transparent Proxy"),
-	translate("A fast secure tunnel proxy that help you get through firewalls on your router").."<br />"状态 - " .. state_msg)
-
+                translate("A fast secure tunnel proxy that help you get through firewalls on your router").."<br /><br /><br />" .. "状态 - " .. state_msg)
 s = m:section(TypedSection, "shadowsocksr", translate("Settings"))
 s.anonymous = true
 
