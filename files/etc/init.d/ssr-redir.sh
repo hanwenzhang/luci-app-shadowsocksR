@@ -67,10 +67,10 @@ start()
 	[ -z "$tool" ] && tool=ShadowsocksR
 	case "$vt_proxy_mode" in
 		M|S|G|GAME)
-			[ -z "$vt_safe_dns" ] && vt_safe_dns="208.67.222.222"
+			[ -z "$vt_safe_dns" ] && vt_safe_dns="47.74.245.177"
 			;;
 	esac
-	[ -z "$vt_safe_dns_port" ] && vt_safe_dns_port=443
+	[ -z "$vt_safe_dns_port" ] && vt_safe_dns_port=5053
 	# Get LAN settings as default parameters
 	[ -f /lib/functions/network.sh ] && . /lib/functions/network.sh
 	[ -z "$covered_subnets" ] && network_get_subnet covered_subnets lan
@@ -479,7 +479,7 @@ start_dnsforwarder()
 	echo safe dns = $safe_dns dns mode is $dns_mode
 	local white=`uci get ssrr.@shadowsocksr[0].white 2>/dev/null`
 
-	local tcp_dns_list="208.67.222.222,208.67.220.220" #alex:给pdnsd使用的可靠的国外dns服务器
+	local tcp_dns_list="47.74.245.177:5053,161.117.183.193:5053" #alex:给pdnsd使用的可靠的国外dns服务器
 	
 	case "$dns_mode" in
 		tcp_gfwlist)
@@ -500,9 +500,11 @@ start_dnsforwarder()
 LogOn true
 LogFileThresholdLength 102400
 LogFileFolder /var/log
-UDPLocal 0.0.0.0:$PDNSD_LOCAL_PORT
-#TCPGroup $tcp_dns_list * no
+#UDPLocal 0.0.0.0:5053
 TCPGroup 47.74.245.177:5053,161.117.183.193:5053 * no
+UDPLocal 0.0.0.0:5053
+#TCPGroup 208.67.222.222,47.74.245.177:5053,161.117.183.193:5053 * no
+
 GroupFile
 BlockIP 243.185.187.39,46.82.174.68,37.61.54.158,93.46.8.89,59.24.3.173,203.98.7.65,8.7.198.45,78.16.49.15,159.106.121.75,69.63.187.12,31.13.76.8,31.13.64.49
 IPSubstituting
